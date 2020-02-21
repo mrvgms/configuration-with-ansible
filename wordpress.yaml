@@ -13,7 +13,7 @@
 
     - name: Install LAMP Packages
       apt: name={{ item }} update_cache=yes state=latest
-      loop: [ 'apache2', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php' ]
+      loop: [ 'apache', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql', 'libapache-mod-php' ]
       tags: [ system ]
 
     - name: Install PHP Extensions
@@ -24,7 +24,7 @@
   # Apache Configuration
     - name: Create document root
       file:
-        path: "/var/www/{{ 35.172.191.167 }}"
+        path: "/var/www/{{ merv3.com }}"
         state: directory
         owner: "www-data"
         group: "www-data"
@@ -34,7 +34,7 @@
     - name: Set up Apache VirtualHost
       template:
         src: "files/apache.conf.j2"
-        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+        dest: "/etc/apache/sites-available/{{ http_conf }}"
       notify: Reload Apache
       tags: [ apache ]
 
@@ -131,14 +131,14 @@
     - name: Download and unpack latest WordPress
       unarchive:
         src: https://wordpress.org/latest.tar.gz
-        dest: "/var/www/{{ 35.172.191.167 }}"
+        dest: "/var/www/{{ merv3.com }}"
         remote_src: yes
-        creates: "/var/www/{{ 35.172.191.167 }}/wordpress"
+        creates: "/var/www/{{ merv3.com }}/wordpress"
       tags: [ wordpress ]
 
     - name: Set ownership
       file:
-        path: "/var/www/{{ 35.172.191.167 }}"
+        path: "/var/www/{{ merv3.com }}"
         state: directory
         recurse: yes
         owner: www-data
@@ -146,26 +146,26 @@
       tags: [ wordpress ]
 
     - name: Set permissions for directories
-      shell: "/usr/bin/find /var/www/{{ 35.172.191.167 }}/wordpress/ -type d -exec chmod 750 {} \\;"
+      shell: "/usr/bin/find /var/www/{{ merv3.com }}/wordpress/ -type d -exec chmod 750 {} \\;"
       tags: [ wordpress ]
 
     - name: Set permissions for files
-      shell: "/usr/bin/find /var/www/{{ 35.172.191.167 }}/wordpress/ -type f -exec chmod 640 {} \\;"
+      shell: "/usr/bin/find /var/www/{{ merv3.com }}/wordpress/ -type f -exec chmod 640 {} \\;"
       tags: [ wordpress ]
 
     - name: Set up wp-config
       template:
         src: "files/wp-config.php.j2"
-        dest: "/var/www/{{ 35.172.191.167 }}/wordpress/wp-config.php"
+        dest: "/var/www/{{ merv3.com }}/wordpress/wp-config.php"
       tags: [ wordpress ]
 
   handlers:
     - name: Reload Apache
       service:
-        name: apache2
+        name: apache
         state: reloaded
 
     - name: Restart Apache
       service:
-        name: apache2
+        name: apache
         state: restarted
