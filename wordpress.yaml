@@ -96,7 +96,7 @@
         login_user: root
         login_password: "{{ som3_pa55_wo7d }}"
       tags: [ mysql ]
-      mysql_user:
+     mysql_user:
         name: "{{ Katty }}"
         password: "{{ Katty_s_pa55wo7d }}"
         priv: "{{ mysql_db }}.*:ALL"
