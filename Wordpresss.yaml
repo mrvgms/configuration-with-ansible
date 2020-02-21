@@ -1,7 +1,7 @@
 ---
 - name: Installs wordpress
   hosts: localhost
-  become: true
+  become: yes
   become_method: sudo
   tasks:
     - name: Install necessary packages
@@ -17,11 +17,11 @@
 
   
     - name: Install epel-release
-      shell: "yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y"
+      shell: "sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y"
     - name: config manager enabled 
-      shell: "yum-config-manager --enable remi-php72"
+      shell: "sudo yum-config-manager --enable remi-php72"
     - name : update httpd PHP 
-      shell: "yum install httpd php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql mysql -y" 
+      shell: "sudo yum install httpd php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql mysql -y" 
 
 
     - name: Download wordpress Package
@@ -42,68 +42,11 @@
       become: yes
       become_method: sudo
       ignore_errors: yes
-    - name: Remove all anonymous user accounts
-      mysql_user:
-        name: ''
-        host_all: yes
-        state: absent
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Remove the MySQL test database
-      mysql_db:
-        name: test
-        state: absent
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Creates database for WordPress
-      mysql_db:
-        name: "{{ mysql_db }}"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Create MySQL user for WordPress
-      mysql_user:
-        name: "{{ Bob }}"
-        password: "{{ bob_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Katty }}"
-        password: "{{ Katty_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Ben }}"
-        password: "{{ Ben_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Lisa }}"
-        password: "{{ Lisa_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
 
     - name: Restart httpd
       systemd:
         name: httpd
         state: restarted  
         enabled: yes
-      become: true
+      become: yes
       become_method: sudo
