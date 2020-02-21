@@ -24,7 +24,7 @@
   # Apache Configuration
     - name: Create document root
       file:
-        path: "/var/www/{{ merv3.com }}"
+        path: "/var/www/{{ 35.172.191.167 }}"
         state: directory
         owner: "www-data"
         group: "www-data"
@@ -131,14 +131,14 @@
     - name: Download and unpack latest WordPress
       unarchive:
         src: https://wordpress.org/latest.tar.gz
-        dest: "/var/www/{{ merv3.com }}"
+        dest: "/var/www/{{ 35.172.191.167 }}"
         remote_src: yes
-        creates: "/var/www/{{ merv3.com }}/wordpress"
+        creates: "/var/www/{{ 35.172.191.167 }}/wordpress"
       tags: [ wordpress ]
 
     - name: Set ownership
       file:
-        path: "/var/www/{{ merv3.com }}"
+        path: "/var/www/{{ 35.172.191.167 }}"
         state: directory
         recurse: yes
         owner: www-data
@@ -146,17 +146,17 @@
       tags: [ wordpress ]
 
     - name: Set permissions for directories
-      shell: "/usr/bin/find /var/www/{{ merv3.com }}/wordpress/ -type d -exec chmod 750 {} \\;"
+      shell: "/usr/bin/find /var/www/{{ 35.172.191.167 }}/wordpress/ -type d -exec chmod 750 {} \\;"
       tags: [ wordpress ]
 
     - name: Set permissions for files
-      shell: "/usr/bin/find /var/www/{{ merv3.com }}/wordpress/ -type f -exec chmod 640 {} \\;"
+      shell: "/usr/bin/find /var/www/{{ 35.172.191.167 }}/wordpress/ -type f -exec chmod 640 {} \\;"
       tags: [ wordpress ]
 
     - name: Set up wp-config
       template:
         src: "files/wp-config.php.j2"
-        dest: "/var/www/{{ merv3.com }}/wordpress/wp-config.php"
+        dest: "/var/www/{{ 35.172.191.167 }}/wordpress/wp-config.php"
       tags: [ wordpress ]
 
   handlers:
