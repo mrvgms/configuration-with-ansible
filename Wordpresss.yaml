@@ -1,7 +1,7 @@
 ---
 - name: Installs wordpress
   hosts: localhost
-  become: yes
+  become: true
   become_method: sudo
   tasks:
     - name: Install necessary packages
@@ -99,11 +99,11 @@
         state: present
         login_user: root
         login_password: "{{ som3_pa55_wo7d }}"
-        
+
     - name: Restart httpd
       systemd:
         name: httpd
         state: restarted  
         enabled: yes
-      become: yes
+      become: true
       become_method: sudo
