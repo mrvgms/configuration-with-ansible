@@ -8,16 +8,16 @@
 
   tasks:
     - name: Install prerequisites
-      yum: name=aptitude update_cache=yes state=latest force_apt_get=yes
+      shell: name=aptitude update_cache=yes state=latest force_apt_get=yes
       tags: [ system ]
 
     - name: Install LAMP Packages
-      apt: name={{ item }} update_cache=yes state=latest
+      shell: name={{ item }} update_cache=yes state=latest
       loop: [ 'apache', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql', 'libapache-mod-php' ]
       tags: [ system ]
 
     - name: Install PHP Extensions
-      apt: name={{ item }} update_cache=yes state=latest
+      shell: name={{ item }} update_cache=yes state=latest
       loop: "{{ php_modules }}"
       tags: [ system ]
 
