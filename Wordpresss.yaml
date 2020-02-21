@@ -108,7 +108,7 @@
         login_password: "{{ som3_pa55_wo7d }}"
       tags: [ mysql ]
 
-     - name: Restart httpd
+    - name: Restart httpd
       systemd:
         name: httpd
         state: restarted  
