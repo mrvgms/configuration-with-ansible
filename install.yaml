@@ -12,7 +12,7 @@
       package: 
         name: 
           - telnet
-          - elink
+          - elinks
           - wget
           - unzip
         state: present
