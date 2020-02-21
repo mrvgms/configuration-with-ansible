@@ -4,8 +4,6 @@
   become: true
   become_method: sudo
   connection: ssh
-  vars_files:
-    - vars/default.yml
 
   tasks:
     - name: Install prerequisites
