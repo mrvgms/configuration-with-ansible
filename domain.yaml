@@ -5,8 +5,8 @@
     - name: Route53 a record
       route53:
         state: "present"
-        zone: "lazizm.com"
-        record: "wordpress.lazizm.com"
+        zone: "merv3.com"
+        record: "wordpress.merv3.com"
         type: A
         ttl: 7200
-        value: "3.8.155.69"
+        value: "18.130.226.238"
