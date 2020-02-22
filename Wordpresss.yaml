@@ -42,71 +42,6 @@
       become: yes
       become_method: sudo
       ignore_errors: yes
-    - name: Set the root password
-      mysql_user:
-        name: root
-        password: "{{ som3_pa55_wo7d }}"
-        login_unix_socket: /var/run/mysqld/mysqld.sock
-      tags: [ mysql, mysql-root ]
-
-    - name: Remove all anonymous user accounts
-      mysql_user:
-        name: ''
-        host_all: yes
-        state: absent
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Remove the MySQL test database
-      mysql_db:
-        name: test
-        state: absent
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Creates database for WordPress
-      mysql_db:
-        name: "{{ mysql_db }}"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-
-    - name: Create MySQL user for WordPress
-      mysql_user:
-        name: "{{ Bob }}"
-        password: "{{ bob_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Katty }}"
-        password: "{{ Katty_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Ben }}"
-        password: "{{ Ben_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
-      mysql_user:
-        name: "{{ Lisa }}"
-        password: "{{ Lisa_s_pa55wo7d }}"
-        priv: "{{ mysql_db }}.*:ALL"
-        state: present
-        login_user: root
-        login_password: "{{ som3_pa55_wo7d }}"
-      tags: [ mysql ]
 
     - name: Restart httpd
       systemd:
@@ -115,3 +50,20 @@
         enabled: yes
       become: yes
       become_method: sudo
+
+    - name: Create 1 user bob
+      user:
+        name: bob
+        generate_ssh_key: yes
+    - name: Create 1 user lisa
+      user:
+        name: lisa
+        generate_ssh_key: yes
+    - name: Create 1 user ben
+      user:
+        name: ben
+        generate_ssh_key: yes
+    - name: Create 1 user kattie
+      user:
+        name: jsmith
+        generate_ssh_key: yes
