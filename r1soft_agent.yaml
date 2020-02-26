@@ -1,0 +1,30 @@
+---
+- name: Test Playbook
+  hosts: all
+  become: true
+  become_method: sudo
+  connection: ssh
+  ignore_errors: false
+  tasks:
+    - name: Creates a repo
+      copy: r1soft.repo
+      dest: /etc/yum.repos.d/r1soft.repo
+ 
+    - name: Install R1soft
+      package: 
+        name: serverbackup-enterprise-agent
+        state: latest
+      
+    - name: Power Off iptables
+      systemd: 
+        name: firewalld
+        state: stopped
+      ignore_errors: true
+
+    - name: Get Key
+      shell: r1soft-setup --get-key http://backup.merv3.com
+
+    - name: Start R1soft Agent
+      systemd:
+        name: sbm-agent
+        state: restarted
