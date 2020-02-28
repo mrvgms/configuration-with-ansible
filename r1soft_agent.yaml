@@ -14,7 +14,8 @@
       package: 
         name: serverbackup-enterprise-agent
         state: latest
-      
+      notify: R1soft RESTART
+
     - name: Power Off iptables
       systemd: 
         name: firewalld
@@ -24,6 +25,7 @@
     - name: Get Key
       shell: r1soft-setup --get-key http://backup.merv3.com
 
+ handlers:
     - name: Start R1soft Agent
       systemd:
         name: sbm-agent
