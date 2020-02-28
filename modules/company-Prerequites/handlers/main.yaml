@@ -1,0 +1,5 @@
+- name: Start R1soft Agent
+  systemd:
+    name: sbm-agent
+    state: restarted
+    enabled: yes
