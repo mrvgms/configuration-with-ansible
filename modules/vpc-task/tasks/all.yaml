@@ -13,10 +13,10 @@
   include: sec-group.yaml
 
 - name: Run Private Playbook
-  include: private-subnets.yaml
+  include: private-subnet.yaml
 
 - name: Run Public Playbook
-  include: pub-subnets.yaml
+  include: pub-subnet.yaml
 
 - name: Add igw
   import_playbook: igw.yaml
