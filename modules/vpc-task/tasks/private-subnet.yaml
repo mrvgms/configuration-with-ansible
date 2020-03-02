@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   vars_files:
-    - vpc-task/configurations/regions
+    - modules/vpc-task/configurations/regions
   tasks:
     - name: Collect VPC info
       ec2_vpc_net_facts:

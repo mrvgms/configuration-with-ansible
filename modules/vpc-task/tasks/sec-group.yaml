@@ -3,7 +3,7 @@
 - name: Playbook for sec groups
   hosts: localhost
   vars_files:
-    - vpc-task/configurations/regions
+    - modules/vpc-task/configurations/regions
   gather_facts: no
   tasks:
 
