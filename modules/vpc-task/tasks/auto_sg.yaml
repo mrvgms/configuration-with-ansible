@@ -2,7 +2,7 @@
 - name: Playbook for VPC
   hosts: localhost
   vars_files:
-    - configurations/regions
+    - vpc-task/configurations/regions
   gather_facts: no
   tasks:
     - name: create launch config
