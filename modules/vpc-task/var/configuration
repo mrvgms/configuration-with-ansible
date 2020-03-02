@@ -1,6 +1,6 @@
-region:                         "us-east-1"
+region:                         "us-west-2"
 vpc_cidr:                       "10.0.0.0/16"
-vpc_name:                       "TaskVPC1"
+vpc_name:                       "TaskVPC2"
 key_name:                       "bastion-root-key"
 instance_type:                  "t2.micro"
 ami:                            "ami-0f2b4fc905b0bd1f1"
