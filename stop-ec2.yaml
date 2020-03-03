@@ -1,0 +1,14 @@
+---
+- name: Stop EC2 instances
+  hosts: all
+  remote_user: ubuntu
+  tasks:
+  - name: Gather facts
+    action: ec2_facts
+
+  - name: Stop all instance
+    local_action:
+        module: ec2
+        region: "all"
+        instance_ids: "{{all}}"
+        state: stopped
